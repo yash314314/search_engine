@@ -11,7 +11,7 @@ const Search = () => {
 
     setLoading(true);
     try {
-      const res = await axios.get(`http://localhost:3001/api/realtime-search?q=${query}`);
+      const res = await axios.get(`https://search-engine-1bu8.onrender.com/api/realtime-search?q=${query}`);
       setLiveResults(res.data || []);
     } catch (err) {
       console.error('Real-time search failed', err);
