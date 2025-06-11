@@ -81,7 +81,7 @@ const fetchFromReddit = async (query) => {
   }
 };
 
-router.get('/api/realtime-search', async (req, res) => {
+router.get('/realtime-search', async (req, res) => {
   const { q } = req.query;
   if (!q) return res.status(400).json({ error: 'Query parameter is required' });
 
