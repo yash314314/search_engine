@@ -13,8 +13,8 @@ const Search = () => {
     try {
       const route =
         priority === 'google'
-          ? 'http://localhost:3001/api1/realtime-search'
-          : 'http://localhost:3001/api2/realtime-search';
+          ? 'https://search-engine-1bu8.onrender.com/api1/realtime-search'
+          : 'https://search-engine-1bu8.onrender.com/api2/realtime-search';
 
       const res = await axios.get(`${route}?q=${encodeURIComponent(query)}`);
       setLiveResults(res.data || []);
