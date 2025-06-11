@@ -46,3 +46,4 @@ async function indexBlogs() {
 }
 
 indexBlogs();
+//this is a test file to index some blogs into Typesense , written by me
