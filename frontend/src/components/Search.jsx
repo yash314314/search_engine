@@ -6,12 +6,17 @@ const Search = () => {
   const [liveResults, setLiveResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleSearch = async () => {
+  const handleSearch = async (priority) => {
     if (!query.trim()) return;
 
     setLoading(true);
     try {
-      const res = await axios.get(`https://search-engine-1bu8.onrender.com/api/realtime-search?q=${query}`);
+      const route =
+        priority === 'google'
+          ? 'http://localhost:3001/api1/realtime-search'
+          : 'http://localhost:3001/api2/realtime-search';
+
+      const res = await axios.get(`${route}?q=${encodeURIComponent(query)}`);
       setLiveResults(res.data || []);
     } catch (err) {
       console.error('Real-time search failed', err);
@@ -23,19 +28,25 @@ const Search = () => {
   return (
     <div className="bg-gray-800 dark:bg-gray-900 min-h-screen py-10 px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-6 flex gap-2">
+        <div className="mb-6 flex gap-2 flex-wrap">
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search blogs..."
-            className="flex-1 px-5 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+            className="flex-1 min-w-[200px] px-5 py-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           />
           <button
-            onClick={handleSearch}
+            onClick={() => handleSearch('google')}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
           >
-            Search
+            Search via Google Priority
+          </button>
+          <button
+            onClick={() => handleSearch('reddit')}
+            className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition"
+          >
+            Search via Reddit Priority
           </button>
         </div>
 
